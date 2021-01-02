@@ -1,0 +1,41 @@
+﻿@using Blog_Website.Models
+@model Blog
+
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+<br />
+
+<input class="invisible" asp-for="blogID" />
+<div class="row">
+    <div class="col-3"></div>
+    <div class="card mr-3 ml-3 col-6">
+        <form action="/Blog/Create" method="post" id="formm" class="p-3" onsubmit="event.preventDefault(); validateForm();">
+            <div class="form-group">
+                <label class="text-black-50">Title:</label>
+                <input type="text" class="form-control" id="title" asp-for="blogTitle">
+                <span id="titleError" class="text-danger"></span>
+            </div>
+            <label class="text-black-50">Comment:</label>
+            <textarea class="form-control" rows="5" id="body" asp-for="blogBody"></textarea>
+            <span id="bodyError" class="text-danger"></span>
+            <br />
+            <button type="submit" class="btn btn-info">Create Post</button>
+
+        </form>
+        <div class="col-3"></div>
+
+    </div>
+</div>
+<script>
+    function validateForm() {
+        
+        if (document.getElementById("title").value === "") {
+            document.getElementById("titleError").innerHTML = "Title can't be empty";
+            return;
+        }
+        if (document.getElementById("body").value === "") {
+            document.getElementById("bodyError").innerHTML = "Body can't be empty";
+            return;
+        }
+        document.getElementById("formm").submit();
+    }
+</script>

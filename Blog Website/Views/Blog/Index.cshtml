@@ -1,0 +1,21 @@
+﻿@using Blog_Website.Models
+@model List<Blog>
+
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<br /> <br />
+
+@if (Model != null) {
+    foreach (Blog blog in Model) {
+        <div class="card ml-3 mr-3">
+            <div class="card-body">
+                <h3 class="card-title text-black-50">@blog.blogTitle</h3>
+                <p class="card-subtitle text-black-50">@blog.userName</p>
+                <br />
+                <p class="card-text text-black-50">@blog.blogBody</p>
+                <p class="card-text text-black-50">@blog.blogDate.ToString("dd/MM/yyyy") </p>
+            </div>
+        </div>
+        <br />
+    }
+}

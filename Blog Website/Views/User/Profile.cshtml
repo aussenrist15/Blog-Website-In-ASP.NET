@@ -1,0 +1,34 @@
+﻿@using Blog_Website.Models
+@model User
+
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+<br />
+<div class="row">
+    <div class="col-2 ml-4">
+        <a class="btn btn-danger" asp-action="Edit" asp-route-id="@Model.userID">EDIT PROFILE</a>
+
+    </div>
+    <div class="col-7">
+        <h1 class="text-center">Welcome @Model.FName @Model.LName</h1>
+    </div>
+    <div class="col-2 mr-1">
+        <a class="btn btn-dark" href="/Blog/Create" >Create Post</a>
+    </div>
+</div>
+@if (Model.userBlogs != null) {
+    foreach (Blog_Website.Models.Blog blog in Model.userBlogs) {
+        <div class="card ml-3 mr-3" >
+            <div class="card-body">
+                <h3 class="card-title text-black-50">@blog.blogTitle</h3>
+                <p class="card-text text-black-50">@blog.blogBody</p>
+                <p class="card-text text-black-50">@blog.blogDate.ToString("dd/MM/yyyy")</p>
+                <a href="/Blog/Edit/@blog.blogID" class="card-link btn btn-info">Edit</a>
+                <a href="/Blog/Delete/@blog.blogID" class="card-link btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" >Delete</a>
+            </div>
+        </div>
+        <br />
+    }
+
+} else {
+    <div class="justify-content-xl-center">You have no blogs yet</div>
+}

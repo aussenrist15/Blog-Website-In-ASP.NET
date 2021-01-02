@@ -1,0 +1,68 @@
+﻿@using Blog_Website.Models
+@model User
+
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+<br />
+
+<div class="row">
+    <div class="col-3"></div>
+    <form action="/User/Edit" method="post" id="formm" onsubmit="event.preventDefault(); validateForm();">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Person</span>
+            </div>
+            <input type="text" class="form-control" id="fname" placeholder="First Name" asp-for="FName">
+            <input type="text" class="form-control" id="lname" placeholder="Last Name" asp-for="LName">
+
+        </div>
+        <span id="fnameError" class="text-black-50"></span>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Email</span>
+            </div>
+            <input type="text" class="form-control" readonly asp-for="Email">
+
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Password</span>
+            </div>
+            <input type="password" class="form-control" id="pass" placeholder="Password" asp-for="Password">
+            <input type="password" class="form-control" id="conpass" placeholder="Confirm Password">
+
+        </div>
+        <span id="passwordError" class="text-black-50"></span>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <div class="col-3"></div>
+
+</div>
+<script>
+    function validateForm() {
+        const fname = document.getElementById("fname").value;
+        const lname = document.getElementById("lname").value;
+        const pass = document.getElementById("pass").value;
+        const conpass = document.getElementById("conpass").value;
+        if (fname === "" || lname === "") {
+            document.getElementById("fnameError").innerHTML = "Fields can't be empty";
+            return;
+        }
+        if (/\s/.test(fname) || /\s/.test(lname)) {
+            document.getElementById("fnameError").innerHTML = "Name can't contain spaces";
+            return;
+        }
+        if (pass !== "" || conpass!=="") {
+            if (pass !== conpass) {
+                document.getElementById("passwordError").innerHTML = "Passwords donot match";
+                return;
+            }
+            if (pass.length < 5) {
+                document.getElementById("passwordError").innerHTML = "Passwords length too short.";
+                return;
+
+            }
+        }
+
+        document.getElementById("formm").submit();
+    }
+</script>
